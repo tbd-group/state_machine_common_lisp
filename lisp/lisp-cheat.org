@@ -1,0 +1,552 @@
+#+TITLE: Uri's SM in Lisp
+#+DATE: <2015-11-23 Mon>
+#+AUTHOR: Brian Beckman, Uri Ran
+#+EMAIL: bbeckman@amazon.com
+#+OPTIONS: ':t *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:(not LOGBOOK) date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t toc:t todo:t |:t
+#+CREATOR: Emacs 24.3.1 (Org mode 8.0.7)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+LaTeX_CLASS_OPTIONS: [10pt,oneside,x11names]
+#+LaTeX_HEADER: \usepackage{geometry}
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage{siunitx}
+#+LaTeX_HEADER: \usepackage{braket}
+#+LaTeX_HEADER: \usepackage[euler-digits,euler-hat-accent]{eulervm}
+#+OPTIONS: toc:2
+
+* Version information
+  #+BEGIN_SRC emacs-lisp :results output :exports results :tangle no
+    (princ (concat (format "Emacs version: %s\n" (emacs-version))
+                   (format "org version: %s\n" (org-version))))
+    (setq org-confirm-babel-evaluate nil)
+    (org-babel-map-src-blocks nil (org-babel-remove-result))
+  #+END_SRC
+
+  #+RESULTS:
+  : Emacs version: GNU Emacs 24.5.1 (x86_64-apple-darwin13.4.0, NS apple-appkit-1265.21)
+  :  of 2015-04-10 on builder10-9.porkrind.org
+  : org version: 8.3.1
+
+  This is version 0.3 of Uri Ran's State-Machine demo.
+
+** Typesetting this Document
+
+   This is a literate program. Code and documentation are contained in a single
+   "org-mode" file called =sm3.org=. You may typeset the document by running the
+   emacs command =org-latex-export-to-pdf=. If you're a VIM user, you may take
+   advantage of org-mode via /Spacemacs/, a near-perfect emulation of VIM in
+   emacs. See the section "Running Code" for instructions on running the code in
+   this document.
+
+* Vertex Struct
+
+  A /vertex/ or "state" in the state-machine diagram has an /entry action/, a
+  /do-action/, an /exit-action/, and an /event table/.  We prefer the word
+  "vertex" to reduce ambiguity and overloading of the word "state."
+
+  Entry actions run whenever the ~*current-vertex*~ token enters a vertex.
+  Exit actions run when the ~*current-vertex*~ token leaves a vertex.
+
+  Do-actions concern /polling/, not further discussed here. Although we define
+  do-actions here, we don't use them; they're a placeholder in this version.
+
+  An event table is an associative lookup table from event symbols to a set of
+  triples. Each triple has a Boolean-valued /guard function/, a
+  /transition-action/ function, and a new vertex. The engine will ~funcall~ the
+  guards in the list, in the order they're presentated, and accept the first
+  triple whose guard returns ~t~, which means /true/ in Lisp. "Accepting the
+  triple" means running the transition action and moving the token to the new
+  vertex if the new vertex-is non-nil. In so doing, the engine will
+  automatically run the exit action of the old vertex and the entry action of
+  the new vertex. If no guards return ~t~, the engine logs a trace message and
+  does nothing.
+
+  The following lisp code defines the vertex struct.
+
+#+BEGIN_SRC lisp :exports both :tangle yes :results none
+  (defstruct vertex-t name entry-ac do-ac exit-ac ev-tbl)
+#+END_SRC
+
+  ~defstruct~ gives us basic constructors and accessors, and that's all we need
+  for this demonstration. Should we need more in the future, we can consider
+  Lisp's ~defclass~.
+
+  As a side-effect of calling ~defstruct~, Lisp defines the following functions
+  in our environment
+
+  - ~(make-vertex-t~
+    - ~:name~ /<name your vertex>/
+    - ~:entry-ac~ /<put a function value here>/
+    - ~:do-ac~ /<put another function value>/
+    - ~:exit-ac~ /<put another function value>/
+    - ~:evt-tbl~ /<put an event table, here>/ ~)~
+    - produces an instance of ~vertex-t~; this is a /constructor/ function
+
+  - ~(vertex-t-name~ /<some instance of vertex-t>/ ~)~ produces the name of the
+    vertex; this is like the dot notation in C / C++, /i.e./, like ~someInstance.name~
+
+  - ~(vertex-t-entry-ac~ /<some instance of vertex-t>/ ~)~ produces the
+    entry-action function value of the vertex; also like dot, just for a
+    different instance variable
+
+  - ~(vertex-t-do-ac~ /<some instance of vertex-t>/ ~)~ produces the
+    do-action function value of the vertex; ditto
+
+  - ~(vertex-t-exit-ac~ /<some instance of vertex-t>/ ~)~ produces the
+    exit-action function value of the vertex; etc.
+
+    It's possible to mutate the /instance variables/ of a ~defstruct~, but we
+    don't need to do this here.
+
+* Utilities
+** Boolean fair coin
+
+    For fuzz testing.
+
+#+BEGIN_SRC lisp :exports both :tangle yes :results none
+  (defun coin () (= 0 (random 2)))
+#+END_SRC
+
+** Drawing to DOT
+
+   Borrowed from "Land of Lisp" by Conrad Barski, M.D.
+
+*** TODO Unsolved Mystey
+
+    SBCL warns that =*max-label-length*= is not defined while compiling
+    =dot-label=.
+
+ #+BEGIN_SRC lisp :results none :exports both
+   (defparameter *max-label-length* 30)
+
+   (defun dot-name (exp)
+     (substitute-if #\_ (complement #'alphanumericp) (prin1-to-string exp)))
+
+   (defun dot-label (exp)
+     (if exp
+         (let ((s (write-to-string exp :pretty nil)))
+           (if (> (length s) *max-label-length*)
+               (concatenate 'string (subseq s 0 (- *max-label-length* 3)) "...")
+               s))
+         ""))
+
+   (defun nodes->dot (nodes)
+     (mapc (lambda (node)
+             (fresh-line)
+             (princ (dot-name (car node)))
+             (princ "[label=\"")
+             (princ (dot-label node))
+             (princ "\"];"))
+           nodes))
+
+   (defun edges->dot (edges)
+     (mapc (lambda (node)
+             (mapc (lambda (edge)
+                     (fresh-line)
+                     (princ (dot-name (car node)))
+                     (princ "->")
+                     (princ (dot-name (car edge)))
+                     (princ "[label=\"")
+                     (princ (dot-label (cdr edge)))
+                     (princ "\"];"))
+                   (cdr node)))
+           edges))
+
+   (defun dgraph->dot (nodes edges)
+     (princ "digraph{")
+     (nodes->dot nodes)
+     (edges->dot edges)
+     (princ "}"))
+
+   (defun uedges->dot (edges)
+     (maplist (lambda (lst)
+                (mapc (lambda (edge)
+                        (unless (assoc (car edge) (cdr lst))
+                          (fresh-line)
+                          (princ (dot-name (caar lst)))
+                          (princ "--")
+                          (princ (dot-name (car edge)))
+                          (princ "[label=\"")
+                          (princ (dot-label (cdr edge)))
+                          (princ "\"];")))
+                      (cdar lst)))
+              edges))
+
+   (defun ugraph->dot (nodes edges)
+     (princ "graph{")
+     (nodes->dot nodes)
+     (uedges->dot edges)
+     (princ "}"))
+
+   (defun dot->png (fname thunk)
+     (with-open-file (*standard-output* (concatenate 'string fname ".dot") :direction :output :if-exists :supersede)
+       (funcall thunk))
+     ;; (ext:shell (concatenate 'string "dot -Tpng -O " fname ".dot"))
+     )
+
+   (defun dgraph->png (fname nodes edges)
+     (dot->png fname
+               (lambda ()
+                 (dgraph->dot nodes edges))))
+
+   (defun ugraph->png (fname nodes edges)
+     (dot->png fname
+               (lambda ()
+                 (ugraph->dot nodes edges))))
+ #+END_SRC
+
+* Action and Guard Functions
+
+** Actions
+
+*** TODO Parameters or return values for actions?
+
+*** TODO Contexts for actions and guards
+
+*** Vertex Actions
+
+    For entry, polling (undefined) and exit, respectively.
+
+    Our actions just print to standard output because this is just a demo.  They
+    might do arbitrary side effects.
+
+#+BEGIN_SRC lisp :exports both :tangle yes :results none
+  (defun vertex-1-entry () (print "vertex 1 entry"))
+  (defun vertex-2-entry () (print "vertex 2 entry"))
+  (defun vertex-3-entry () (print "vertex 3 entry"))
+  (defun vertex-4-entry () (print "vertex 4 entry"))
+
+  (defun vertex-1-do    () (print "vertex 1 do"))
+  (defun vertex-2-do    () (print "vertex 2 do"))
+  (defun vertex-3-do    () (print "vertex 3 do"))
+  (defun vertex-4-do    () (print "vertex 4 do"))
+
+  (defun vertex-1-exit  () (print "vertex 1 exit"))
+  (defun vertex-2-exit  () (print "vertex 2 exit"))
+  (defun vertex-3-exit  () (print "vertex 3 exit"))
+  (defun vertex-4-exit  () (print "vertex 4 exit"))
+#+END_SRC
+
+*** Edge Actions
+
+    When the engine takes a transition, moving the token from one vertex to
+    another, it runs these functions.
+
+#+BEGIN_SRC lisp :exports both :tangle yes :results none
+  (defun act-a () (print "action a" ))
+  (defun act-b () (print "action b" ))
+  (defun act-c () (print "action c" ))
+  (defun act-d () (print "action d" ))
+  (defun act-na() (print "action na"))
+#+END_SRC
+
+** Guards (Boolean-Valued)
+
+#+BEGIN_SRC lisp :exports both :tangle yes :results none
+  (defun guard-x     () (coin) )
+  (defun guard-y     () (coin) )
+  (defun guard-z     () (coin) )
+  (defun guard-true  () t      )
+  (defun guard-false () nil    )
+  (defun guard-na    () t      )
+#+END_SRC
+
+* The Diagram
+
+    If ~nym~ is $\texttt{"foo"}$, we want functions ~foo-entry~, ~foo-do~, and
+    ~foo-exit~ automatically assigned.  The following macro expands into the
+    boilerplate necessary for creating instances of ~vertex-t~. These instances
+    are stored in global /special variables/ demarcated with asterisks, for
+    example, ~*vertex-1*~. Special variables are basically global variables, but
+    there are some subtleties that don't concern us here.[fn:idio]
+
+    The macro works by defining some strings for the identifiers based off the
+    ~nym~, converting them to symbols, and writing out new code that defines,
+    via ~defvar~, a global variable that refers to an instance of ~vertex-t~
+    with /entry/, /do/, and /exit/ actions defined according to the naming
+    convention in the paragraph above.
+
+[fn:idio] http://www.flownet.com/ron/specials.pdf
+
+** How to Define a Vertex
+ #+BEGIN_SRC lisp :exports both :tangle yes :results none
+   (defparameter *vertices* nil)
+   (defmacro defvertex (nym ev-tbl)
+     (let* ((dynvar (format nil "*~A*"     nym))
+            (entry  (format nil "~A-entry" nym))
+            (doo    (format nil "~A-do"    nym))
+            (exit   (format nil "~A-exit"  nym))
+            (vtxsym (with-input-from-string (s dynvar) (read s))))
+       `(progn
+          (defvar ,vtxsym
+            (make-vertex-t
+             :name     (format nil "~A" ,nym)
+             :entry-ac (function ,(with-input-from-string (s entry) (read s)))
+             :do-ac    (function ,(with-input-from-string (s doo  ) (read s)))
+             :exit-ac  (function ,(with-input-from-string (s exit ) (read s)))
+             :ev-tbl   ,ev-tbl))
+          (push ,vtxsym *vertices*))))
+ #+END_SRC
+
+** Vertices in Our Diagram
+
+ Notice that the new vertices named in the event table are unevaluated symbols.
+ That's because we want to refer to them before they're defined. We know their
+ names at the time we write the table, but they don't always have values. This
+ is a good way to avoid forward referencing and resolution. Evaling the symbols
+ at transition time is preferable.
+
+  #+BEGIN_SRC lisp :exports both :results none :tangle yes
+   (defvertex "vertex-1"
+      '((ev-2 (guard-true act-c  *vertex-3* ))
+        (ev-3 (guard-x    act-na *vertex-1* ))  ))
+   (defvertex "vertex-2"
+      '((ev-4 (guard-true act-na *vertex-1* ))
+        (ev-6 (guard-x    act-c  *vertex-4* ))  ))
+   (defvertex "vertex-3"
+      '((ev-1 (guard-x    act-na nil        )
+              (guard-y    act-b  *vertex-1* )
+              (guard-z    act-na *vertex-1* ))
+        (ev-5 (guard-na   act-d  *vertex-4* ))  ))
+   (defvertex "vertex-4"
+      '((ev-3 (guard-y    act-d  *vertex-2* ))
+        (ev-6 (guard-x    act-c  *vertex-3* ))  ))
+ #+END_SRC
+
+** Drawing The Diagram
+
+ #+BEGIN_SRC lisp :results none :exports both
+   (defun abbreviate-name (nym)
+
+   (defparameter *wizard-nodes*
+     '((v1 1)
+       (v2 2)
+       (v3 3)
+       (v4 4)))
+
+   (defparameter *wizard-edges*
+     '((v1 (v3 g-t  ev-2)
+           (v1 g-x  ev-3))
+       (v2 (v1 g-t  ev-4)
+           (v4 g-x  ev-6))
+       (v3 (v1 g-y  ev-1)
+           (v1 g-z  ev-1)
+           (v4 g-na ev-5))
+       (v4 (v2 g-y  ev-3)
+           (v3 g-x  ev-6))))
+ #+END_SRC
+
+ #+BEGIN_SRC lisp :results none :exports both
+   (dgraph->png "wizard" *wizard-nodes* *wizard-edges*)
+ #+END_SRC
+
+ #+BEGIN_SRC bash :results none :exports both
+   dot -Tpng -O wizard.dot
+ #+END_SRC
+
+ [[file:wizard.dot.png]]
+
+** Simulating Transitions in the Diagram
+
+*** The Vertex Token
+
+     At any time, the state-machine is "in" a vertex (or state). This means that
+     the value of ~*current-vertex*~ is the particular vertex instance. We call
+     ~*current-vertex*~ the /vertex token/. We should visualize a token on a
+     gaming board moving from one vertex to another.
+
+  #+BEGIN_SRC lisp :exports both :tangle yes :results none
+     (defparameter *current-vertex* *vertex-1*)
+   #+END_SRC
+
+*** The Engine
+
+**** Eval-First-Admissible-Triple
+
+     This function implements the token-moving strategy discussed above and
+     returns the current value of the token ~*current-vertex*~, whether it's
+     changed or not.
+
+     When the new-vertex is ~nil~, the ~*current-vertex*~ does not change and the
+     action functions do not run, even if the guard is true.
+
+  #+BEGIN_SRC lisp :exports both :results none :tangle yes
+    (defun eval-first-admissible-triple (triples)
+      (cond (triples
+             (let* ((triple     (first  triples))
+                    (guard      (first  triple))
+                    (action     (second triple))
+                    (new-vertex (eval (third  triple))))
+               (if (and (funcall guard) new-vertex)
+                   (progn
+                     (funcall (vertex-t-exit-ac *current-vertex*))
+                     (funcall action)
+                     (setf *current-vertex* new-vertex)
+                     (funcall (vertex-t-entry-ac *current-vertex*)))
+                   (progn
+                     (format t
+                             "~%~A: guard failed; trying next guard"
+                             (vertex-t-name *current-vertex*))
+                     (eval-first-admissible-triple (rest triples))))))
+            (t (format t
+                       "~%~A: all guards failed; doing nothing"
+                       (vertex-t-name *current-vertex*))))
+     ,*current-vertex*)
+  #+END_SRC
+
+**** SM-Engine
+
+     This takes an event symbol, does lookup in the diagram, and performs the
+     indicated transition.
+
+  #+BEGIN_SRC lisp :tangle yes :results none :exports both
+    (defun sm-engine (event-symbol)
+      ;; Unconditionally perform the do-action:
+      ;; (funcall (vertex-t-do-ac *current-vertex*))
+      ;; Look up the event:
+      (let ((line (rest (assoc event-symbol
+                               (vertex-t-ev-tbl *current-vertex*)))))
+        (if line
+            (eval-first-admissible-triple line)
+          (progn
+            (format t "~%~A: event ~W not found; doing nothing"
+                    (vertex-t-name *current-vertex*)
+                    event-symbol)
+            *current-vertex*))))
+
+  #+END_SRC
+
+* Running the Code
+
+  This document contains actual, live code. You can run the code in two ways:
+  inside org mode or by extracting (tangling) the code and running it at the
+  command line.
+
+** Setting up Two Good Lisps
+
+   Install SBCL (Steel Bank Common Lisp) for running this code in the editor or
+   a REPL, and ECL (Embeddable Common Lisp) for generating C code. On a mac,
+   this is trivial with homebrew:
+
+   ~brew install sbcl~
+
+   ~brew install ecl~
+
+   You will need SLIME in Emacs or Spacemacs to run the code in this file
+   directly. Just Google any of these things you don't recognize. I recommend
+   Spacemacs because it has high-fidelity VIM emulation.
+
+   To find out whether you have slime, type =M-x slime=. If you don't have it,
+   get it.
+
+** Running Code Directly
+
+   Once you have SLIME running in Emacs, type =M-x slime= to start the REPL,
+   then type =M-x org-babel-execute-buffer= to run all the code in this file. At
+   the very end of this file, you will see a few unit tests. Put the cursor in
+   that code block and type =C-c C-c= repeatedly to run the unit tests over and
+   over. The results will be slightly different each time because the guard
+   functions do coin flips. I have tried to arrange the unit tests so that the
+   last value always prints =t=, short for =true=.
+
+** Extracting Code From This File
+
+   Type =M-x org-babel-tangle= and you should get a file named =sm.lisp=.
+
+** Generating, Inspecting, Running C code
+
+   After extracting code, run ECL at the command prompt:
+#+BEGIN_EXAMPLE
+   $ ecl -load make.lisp
+#+END_EXAMPLE
+   Watch all the pretty messages go by, then type
+#+BEGIN_EXAMPLE
+   (quit)
+#+END_EXAMPLE
+   to leave the ECL REPL, then
+#+BEGIN_EXAMPLE
+   $ ./sm
+#+END_EXAMPLE
+   to run the generated code. You should see exactly the same output as you
+   would get from the last section below.
+
+*** TODO Create Deeply Embedded C
+
+   The generated code is in the files =sm.c=, =sm.h=, and =sm.data=.  The
+   generated code pretty much just calls the ECL runtime kernel. This is a
+   /shallow embedding/ of the lisp code in C.  A /deep embedding/ would write C
+   code that bypasses lisp-specific helpers and more directly express the model.
+   Bypassing a lisp runtime means that we can avoid exposure to garbage
+   collection and other potential hazards in the lisp implementation.
+
+   A good way to produce a deep embedding will be through macros.  The deeply
+   embedded code should be comparable to the code that Uri wrote by hand.
+
+** Interactively
+
+   To run in an external REPL, past the following code into the REPL (and remove
+   the quote, of course). Don't try to run this code from org-mode; it will
+   deadlock with SLIME as they contend over who has the terminal.
+
+ #+BEGIN_SRC lisp :exports both :results none :tangle no
+   '(let ((ev 1024))
+     (loop while (> ev 0) do
+       (format t "~%Enter an event number > 0, 0 to quit: ")
+       (setf ev (read))
+       (format t "~%~A: searching for event ~A"
+               (vertex-t-name *current-vertex*)
+               (format nil "ev-~A" ev))
+       (if (numberp ev)
+           (progn
+             (with-input-from-string (s (format nil "ev-~A" ev))
+                  (sm-engine (read s nil 0))))
+           (format t "~%~A: failure: type-of ev wasn't a number, but a ~A"
+                   (vertex-t-name *current-vertex*)
+                   (type-of ev)))))
+
+ #+END_SRC
+
+** Unit Tests, Exhaustive Tests
+
+   Because the current guards are random, exhaustively testing them isn't as
+   trivial as enumeration.
+
+   Run the following unit test repeatedly; it can be a little different each
+   time, but the machine should always end up in vertex 3.
+
+#+BEGIN_SRC lisp :results output :exports both :tangle yes
+(print (equal *current-vertex* *vertex-1*))
+(print (eq *current-vertex* *vertex-1*))
+(print (eq (sm-engine 'ev-1) *vertex-1*))
+(print (eq (sm-engine 'ev-4) *vertex-1*))
+(print (eq (sm-engine 'bogus) *vertex-1*))
+(print (eq (sm-engine 'ev-3) *vertex-1*))
+(print (eq (sm-engine 'ev-2) *vertex-3*))
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+T
+T
+vertex-1: event EV-1 not found; doing nothing
+T
+vertex-1: event EV-4 not found; doing nothing
+T
+vertex-1: event BOGUS not found; doing nothing
+T
+"vertex 1 exit"
+"action na"
+"vertex 1 entry"
+T
+"vertex 1 exit"
+"action c"
+"vertex 3 entry"
+T
+#+end_example

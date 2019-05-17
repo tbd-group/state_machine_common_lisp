@@ -1,0 +1,7 @@
+(load "~/quicklisp/setup.lisp")
+(ql:quickload :lisp-unit)
+(setf *print-failures* t)
+(load "linqisp.lisp")
+(load "test-linqisp.lisp")
+(in-package :test-linqisp)
+(lisp-unit:run-tests :all)

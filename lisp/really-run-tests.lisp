@@ -1,0 +1,5 @@
+(load "~/quicklisp/setup.lisp")
+(ql:quickload :lisp-unit)
+(load "packages.lisp")
+(load "linqisp.lisp")
+(load "test-linqisp.lisp")

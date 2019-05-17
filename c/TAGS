@@ -1,0 +1,476 @@
+
+cmd_line_prms.c,283
+    welcome_message_cfg wmc;12,166
+    event_input_type    eit;13,237
+} sys_config;14,357
+static sys_config sys_cfg 16,372
+welcome_message_cfg get_welcome_message_cfg(21,574
+event_input_type get_event_input_type(25,649
+int cmd_line_prms(29,719
+    #define MAX_ARG_LEN 35,922
+
+cmd_line_prms.h,268
+typedef enum { eit_char,4,15
+typedef enum { eit_char,  eit_str 4,15
+typedef enum { eit_char,  eit_str   } event_input_type;4,15
+typedef enum { wmsg_hide,5,71
+typedef enum { wmsg_hide, wmsg_show 5,71
+typedef enum { wmsg_hide, wmsg_show } welcome_message_cfg;5,71
+
+main.c,179
+#define Esc 14,202
+int main(21,352
+void print_opening_msg(50,1171
+events_enm get_str_event(64,1625
+#define NBYTES 67,1678
+#undef NBYTES90,2253
+events_enm get_event(93,2270
+
+quickcheck4c.c,3561
+typedef void (*QCC_genRaw)QCC_genRaw16,346
+typedef void (*QCC_genRawR)QCC_genRawR17,385
+struct QCC_Stamp 19,448
+  char *label;label20,467
+  int n;21,482
+  struct QCC_Stamp *next;next22,491
+typedef struct QCC_Result 25,521
+  QCC_TestStatus status;26,549
+  QCC_Stamp *stamps;stamps27,574
+  QCC_GenValue **arguments;arguments28,595
+  int argumentsN;29,623
+} QCC_Result;30,641
+enum QCC_deref_type 32,656
+enum QCC_deref_type { NONE,32,656
+enum QCC_deref_type { NONE, LONG,32,656
+enum QCC_deref_type { NONE, LONG, INT,32,656
+enum QCC_deref_type { NONE, LONG, INT, FLOAT,32,656
+enum QCC_deref_type { NONE, LONG, INT, FLOAT, DOUBLE,32,656
+enum QCC_deref_type { NONE, LONG, INT, FLOAT, DOUBLE, CHAR 32,656
+void QCC_init(34,719
+static char* QCC_showSimpleValue(42,982
+static void QCC_freeSimpleValue(69,1647
+QCC_GenValue* QCC_initGenValue(73,1712
+static char* QCC_showLong(85,2124
+void QCC_genLongAtR(89,2231
+void QCC_genLongAt(102,2513
+QCC_GenValue* QCC_genLongR(108,2633
+QCC_GenValue* QCC_genLong(115,2821
+static char* QCC_showInt(119,2905
+void QCC_genIntAtR(123,3009
+void QCC_genIntAt(128,3121
+QCC_GenValue* QCC_genIntR(134,3234
+QCC_GenValue* QCC_genInt(141,3415
+static char* QCC_showDouble(145,3511
+void QCC_genDoubleAtR(149,3624
+void QCC_genDoubleAt(154,3773
+QCC_GenValue* QCC_genDoubleR(160,3907
+QCC_GenValue* QCC_genDouble(166,4108
+static char* QCC_showFloat(170,4200
+void QCC_genFloatAtR(174,4311
+void QCC_genFloatAt(179,4453
+QCC_GenValue* QCC_genFloatR(185,4580
+QCC_GenValue* QCC_genFloat(192,4775
+static char* QCC_showBoolean(196,4863
+void QCC_genBooleanAt(203,5025
+QCC_GenValue* QCC_genBoolean(208,5158
+static char* QCC_showChar(215,5337
+void QCC_genCharAt(219,5444
+QCC_GenValue* QCC_genChar(223,5513
+QCC_GenValue* QCC_genArrayOf(235,5855
+QCC_GenValue* QCC_genArrayOfR(245,6161
+static char *QCC_showString(QCC_showString255,6501
+QCC_GenValue* QCC_genStringL(259,6610
+QCC_GenValue* QCC_genString(265,6822
+static char *QCC_showSimpleArray(QCC_showSimpleArray269,6886
+static char* QCC_showArrayLong(297,7628
+QCC_GenValue* QCC_genArrayLongLR(301,7752
+QCC_GenValue* QCC_genArrayLongL(305,7946
+QCC_GenValue* QCC_genArrayLong(309,8104
+static char* QCC_showArrayInt(313,8253
+QCC_GenValue* QCC_genArrayIntLR(317,8374
+QCC_GenValue* QCC_genArrayIntL(321,8562
+QCC_GenValue* QCC_genArrayInt(325,8716
+static char* QCC_showArrayDouble(329,8861
+QCC_GenValue* QCC_genArrayDoubleLR(333,8991
+QCC_GenValue* QCC_genArrayDoubleL(337,9197
+QCC_GenValue* QCC_genArrayDouble(341,9363
+static char* QCC_showArrayFloat(345,9520
+QCC_GenValue* QCC_genArrayFloatLR(349,9647
+QCC_GenValue* QCC_genArrayFloatL(353,9847
+QCC_GenValue* QCC_genArrayFloat(357,10009
+static char* QCC_showArrayBoolean(361,10162
+QCC_GenValue* QCC_genArrayBooleanL(365,10299
+QCC_GenValue* QCC_genArrayBoolean(369,10473
+static char* QCC_showArrayChar(373,10638
+QCC_GenValue* QCC_genArrayCharL(377,10762
+QCC_GenValue* QCC_genArrayChar(381,10920
+QCC_TestStatus QCC_not(388,11242
+QCC_TestStatus QCC_and(397,11457
+QCC_TestStatus QCC_or(406,11707
+QCC_TestStatus QCC_xor(416,11938
+void QCC_freeStamp(428,12375
+static void QCC_insertOrdStamp(439,12594
+static QCC_Stamp* QCC_sortStamp(457,13022
+static void QCC_labelN(466,13266
+void QCC_label(487,13697
+static void QCC_mergeLabels(491,13789
+void QCC_freeGenValues(499,14102
+void QCC_freeResult(508,14321
+QCC_Result QCC_vforAll(513,14447
+QCC_Result QCC_forAll(534,14969
+static void QCC_printStamps(543,15182
+static void QCC_printArguments(551,15503
+int QCC_testForAll(560,15735
+
+quickcheck4c.h,1097
+#define QUICKCHECK4C_C9,244
+#define QCC_LONG_FROM 15,355
+#define QCC_LONG_TO 16,389
+#define QCC_INT_FROM 17,420
+#define QCC_INT_TO 18,453
+#define QCC_DOUBLE_FROM 19,483
+#define QCC_DOUBLE_TO 20,532
+#define QCC_FLOAT_FROM 21,578
+#define QCC_FLOAT_TO 22,625
+typedef enum { QCC_TRUE=28,771
+typedef enum { QCC_TRUE=1, QCC_FALSE=28,771
+typedef enum { QCC_TRUE=1, QCC_FALSE=0 } QCC_Boolean;28,771
+typedef enum { QCC_OK=38,1122
+typedef enum { QCC_OK=1, QCC_FAIL=38,1122
+typedef enum { QCC_OK=1, QCC_FAIL=0, QCC_NOTHING=38,1122
+typedef enum { QCC_OK=1, QCC_FAIL=0, QCC_NOTHING=-1 } QCC_TestStatus;38,1122
+#define QCC_getValue(48,1439
+typedef char* (*QCC_showValue)QCC_showValue59,1838
+typedef void (*QCC_freeValue)QCC_freeValue66,2005
+typedef struct QCC_GenValue 80,2592
+  void *value;value81,2622
+  int n;82,2637
+  QCC_showValue show;83,2646
+  QCC_freeValue free;84,2668
+} QCC_GenValue;85,2690
+typedef struct QCC_Stamp QCC_Stamp;91,2805
+typedef QCC_GenValue* (*QCC_gen)QCC_gen96,2907
+typedef QCC_TestStatus (*QCC_property)QCC_property105,3144
+#define QCC_imply(119,3686
+
+sm_data.c,7903
+#define EV(8,106
+  const events_enm events_enm_tbl[events_enm_tbl9,123
+#undef  EV10,180
+#define EV(12,192
+const char* all_events_str[all_events_str13,217
+#undef EV14,267
+#define ST(16,278
+const char* all_states_str[all_states_str17,303
+#undef ST18,353
+#define EV(22,383
+static const events_enm set_1_events[set_1_events23,400
+#undef EV24,459
+#define EVENTS_AND_TRANSITIONS 27,503
+#define ASSOC(28,568
+static const events_enm tr_1_events[tr_1_events29,654
+#undef  ASSOC30,726
+#define ASSOC(32,741
+static guard_fp         tr_1_guards[tr_1_guards33,828
+#undef  ASSOC34,900
+#define ASSOC(36,915
+static const char*      tr_1_guards_str[tr_1_guards_str37,1003
+#undef  ASSOC38,1075
+#define ASSOC(40,1090
+static trnAc_fp         tr_1_trActs[tr_1_trActs41,1176
+#undef  ASSOC42,1248
+#define ASSOC(44,1263
+static const char*      tr_1_trActs_str[tr_1_trActs_str45,1358
+#undef  ASSOC46,1430
+#define ASSOC(48,1445
+static states_enm       tr_1_next_st[tr_1_next_st49,1532
+#undef  ASSOC50,1604
+#undef EVENTS_AND_TRANSITIONS51,1618
+#define EVENTS_AND_TRANSITIONS 55,1683
+#define ASSOC(56,1748
+static const events_enm tr_2_events[tr_2_events57,1794
+#undef  ASSOC58,1866
+#define ASSOC(60,1881
+static guard_fp         tr_2_guards[tr_2_guards61,1930
+#undef  ASSOC62,2002
+#define ASSOC(64,2017
+static const char*      tr_2_guards_str[tr_2_guards_str65,2072
+#undef  ASSOC66,2144
+#define ASSOC(68,2159
+static trnAc_fp         tr_2_trActs[tr_2_trActs69,2209
+#undef  ASSOC70,2281
+#define ASSOC(72,2296
+static const char*      tr_2_trActs_str[tr_2_trActs_str73,2352
+#undef  ASSOC74,2424
+#define ASSOC(76,2439
+static states_enm       tr_2_next_st[tr_2_next_st77,2490
+#undef  ASSOC78,2562
+#undef EVENTS_AND_TRANSITIONS79,2576
+#define EVENTS_AND_TRANSITIONS 83,2641
+#define ASSOC(84,2706
+static const events_enm tr_3_events[tr_3_events85,2752
+#undef  ASSOC86,2824
+#define ASSOC(88,2839
+static guard_fp         tr_3_guards[tr_3_guards89,2888
+#undef  ASSOC90,2960
+#define ASSOC(92,2975
+static const char*      tr_3_guards_str[tr_3_guards_str93,3030
+#undef  ASSOC94,3102
+#define ASSOC(96,3117
+static trnAc_fp         tr_3_trActs[tr_3_trActs97,3167
+#undef  ASSOC98,3239
+#define ASSOC(100,3254
+static const char*      tr_3_trActs_str[tr_3_trActs_str101,3310
+#undef  ASSOC102,3382
+#define ASSOC(104,3397
+static states_enm       tr_3_next_st[tr_3_next_st105,3448
+#undef  ASSOC106,3520
+#undef EVENTS_AND_TRANSITIONS107,3534
+#define EVENTS_AND_TRANSITIONS 111,3599
+#define ASSOC(112,3664
+static const events_enm tr_4_events[tr_4_events113,3710
+#undef  ASSOC114,3782
+#define ASSOC(116,3797
+static guard_fp         tr_4_guards[tr_4_guards117,3846
+#undef  ASSOC118,3918
+#define ASSOC(120,3933
+static const char*      tr_4_guards_str[tr_4_guards_str121,3988
+#undef  ASSOC122,4060
+#define ASSOC(124,4075
+static trnAc_fp         tr_4_trActs[tr_4_trActs125,4125
+#undef  ASSOC126,4197
+#define ASSOC(128,4212
+static const char*      tr_4_trActs_str[tr_4_trActs_str129,4268
+#undef  ASSOC130,4340
+#define ASSOC(132,4355
+static states_enm       tr_4_next_st[tr_4_next_st133,4406
+#undef  ASSOC134,4478
+#undef EVENTS_AND_TRANSITIONS135,4492
+#define EV(139,4542
+  static const events_enm set_2_events[set_2_events140,4559
+#undef EV142,4731
+#define EVENTS_AND_TRANSITIONS 145,4775
+#define ASSOC(146,4840
+static const events_enm tr_a_events[tr_a_events147,4886
+#undef  ASSOC148,4958
+#define ASSOC(150,4973
+static guard_fp         tr_a_guards[tr_a_guards151,5022
+#undef  ASSOC152,5094
+#define ASSOC(154,5109
+static const char*      tr_a_guards_str[tr_a_guards_str155,5164
+#undef  ASSOC156,5236
+#define ASSOC(158,5251
+static trnAc_fp         tr_a_trActs[tr_a_trActs159,5301
+#undef  ASSOC160,5373
+#define ASSOC(162,5388
+static const char*      tr_a_trActs_str[tr_a_trActs_str163,5444
+#undef  ASSOC164,5516
+#define ASSOC(166,5531
+static states_enm       tr_a_next_st[tr_a_next_st167,5582
+#undef  ASSOC168,5654
+#undef EVENTS_AND_TRANSITIONS169,5668
+#define EVENTS_AND_TRANSITIONS 173,5733
+#define ASSOC(174,5798
+static const events_enm tr_b_events[tr_b_events175,5844
+#undef  ASSOC176,5916
+#define ASSOC(178,5931
+static guard_fp         tr_b_guards[tr_b_guards179,5980
+#undef  ASSOC180,6052
+#define ASSOC(182,6067
+static const char*      tr_b_guards_str[tr_b_guards_str183,6122
+#undef  ASSOC184,6194
+#define ASSOC(186,6209
+static trnAc_fp         tr_b_trActs[tr_b_trActs187,6259
+#undef  ASSOC188,6331
+#define ASSOC(190,6346
+static const char*      tr_b_trActs_str[tr_b_trActs_str191,6402
+#undef  ASSOC192,6474
+#define ASSOC(194,6489
+static states_enm       tr_b_next_st[tr_b_next_st195,6540
+#undef  ASSOC196,6612
+#undef EVENTS_AND_TRANSITIONS197,6626
+#define EVENTS_AND_TRANSITIONS 201,6691
+#define ASSOC(202,6756
+static const events_enm tr_c_events[tr_c_events203,6802
+#undef  ASSOC204,6874
+#define ASSOC(206,6889
+static guard_fp         tr_c_guards[tr_c_guards207,6938
+#undef  ASSOC208,7010
+#define ASSOC(210,7025
+static const char*      tr_c_guards_str[tr_c_guards_str211,7080
+#undef  ASSOC212,7152
+#define ASSOC(214,7167
+static trnAc_fp         tr_c_trActs[tr_c_trActs215,7217
+#undef  ASSOC216,7289
+#define ASSOC(218,7304
+static const char*      tr_c_trActs_str[tr_c_trActs_str219,7360
+#undef  ASSOC220,7432
+#define ASSOC(222,7447
+static states_enm       tr_c_next_st[tr_c_next_st223,7498
+#undef  ASSOC224,7570
+#undef EVENTS_AND_TRANSITIONS225,7584
+#define EVENTS_AND_TRANSITIONS 229,7649
+#define ASSOC(230,7714
+static const events_enm tr_d_events[tr_d_events231,7760
+#undef  ASSOC232,7832
+#define ASSOC(234,7847
+static guard_fp         tr_d_guards[tr_d_guards235,7896
+#undef  ASSOC236,7968
+#define ASSOC(238,7983
+static const char*      tr_d_guards_str[tr_d_guards_str239,8038
+#undef  ASSOC240,8110
+#define ASSOC(242,8125
+static trnAc_fp         tr_d_trActs[tr_d_trActs243,8175
+#undef  ASSOC244,8247
+#define ASSOC(246,8262
+static const char*      tr_d_trActs_str[tr_d_trActs_str247,8318
+#undef  ASSOC248,8390
+#define ASSOC(250,8405
+static states_enm       tr_d_next_st[tr_d_next_st251,8456
+#undef  ASSOC252,8528
+#undef EVENTS_AND_TRANSITIONS253,8542
+#define EVENTS_AND_TRANSITIONS 256,8606
+#define ASSOC(257,8671
+static const events_enm tr_e_events[tr_e_events258,8717
+#undef  ASSOC259,8789
+#define ASSOC(261,8804
+static guard_fp         tr_e_guards[tr_e_guards262,8853
+#undef  ASSOC263,8925
+#define ASSOC(265,8940
+static const char*      tr_e_guards_str[tr_e_guards_str266,8995
+#undef  ASSOC267,9067
+#define ASSOC(269,9082
+static trnAc_fp         tr_e_trActs[tr_e_trActs270,9132
+#undef  ASSOC271,9204
+#define ASSOC(273,9219
+static const char*      tr_e_trActs_str[tr_e_trActs_str274,9275
+#undef  ASSOC275,9347
+#define ASSOC(277,9362
+static states_enm       tr_e_next_st[tr_e_next_st278,9413
+#undef  ASSOC279,9485
+#undef EVENTS_AND_TRANSITIONS280,9499
+#define COUNT_OF(285,9739
+#define ADDRESS_OF(287,9829
+#define STATES_FIELDS(288,9856
+#define EVENTS_TBL(289,9947
+#define TRANSITION_FIELDS(290,10015
+state_data_t  state_1_data,292,10185
+state_data_t  state_1_data, state_2_data,292,10185
+state_data_t  state_1_data, state_2_data, state_3_data,292,10185
+state_data_t  state_1_data, state_2_data, state_3_data, state_4_data;292,10185
+const state_t set_1_states_tbl[set_1_states_tbl293,10257
+state_data_t  state_a_data,300,10585
+state_data_t  state_a_data, state_b_data,300,10585
+state_data_t  state_a_data, state_b_data, state_c_data,300,10585
+state_data_t  state_a_data, state_b_data, state_c_data, state_d_data,300,10585
+state_data_t  state_a_data, state_b_data, state_c_data, state_d_data, state_e_data;300,10585
+const state_t set_2_states_tbl[set_2_states_tbl301,10671
+states_set_t state_sets[state_sets310,11224
+sm_data_t sm_data 317,11594
+events_enm str_to_eventEnum(319,11689
+
+sm_data.h,559
+#define SET_1_INITIAL_STATE 9,203
+#define SET_1_EVENTS 10,243
+#define STATE_1_EVENTS_AND_TRANSITIONS 13,334
+#define STATE_2_EVENTS_AND_TRANSITIONS 17,497
+#define STATE_3_EVENTS_AND_TRANSITIONS 21,660
+#define STATE_4_EVENTS_AND_TRANSITIONS 27,931
+#define SET_2_INITIAL_STATE 32,1148
+#define SET_2_EVENTS 33,1188
+#define STATE_A_EVENTS_AND_TRANSITIONS 36,1288
+#define STATE_B_EVENTS_AND_TRANSITIONS 40,1451
+#define STATE_C_EVENTS_AND_TRANSITIONS 44,1614
+#define STATE_D_EVENTS_AND_TRANSITIONS 50,1885
+#define STATE_E_EVENTS_AND_TRANSITIONS 54,2048
+
+sm_engine.c,245
+void sm_engine(18,488
+states_enm process_states_set(25,675
+static const state_t* get_state_ptr(63,2732
+static bool leagal_event(74,3129
+void sm_engine_init(85,3374
+void sm_engine_start(110,4603
+static void call_transition_action(120,4979
+
+sm_funcs.c,989
+static void print_msg(10,157
+state_data_t* state_1_entry(18,432
+state_data_t* state_2_entry(19,540
+state_data_t* state_3_entry(20,648
+state_data_t* state_4_entry(21,756
+state_data_t* state_1_exit(23,865
+state_data_t* state_2_exit(24,973
+state_data_t* state_3_exit(25,1081
+state_data_t* state_4_exit(26,1189
+state_data_t* state_a_entry(28,1298
+state_data_t* state_b_entry(29,1406
+state_data_t* state_c_entry(30,1514
+state_data_t* state_d_entry(31,1622
+state_data_t* state_e_entry(32,1730
+state_data_t* state_a_exit(34,1839
+state_data_t* state_b_exit(35,1947
+state_data_t* state_c_exit(36,2055
+state_data_t* state_d_exit(37,2163
+state_data_t* state_e_exit(38,2271
+sm_data_t* act_a 40,2380
+sm_data_t* act_b 41,2488
+sm_data_t* act_c 42,2596
+sm_data_t* act_d 43,2704
+sm_data_t* act_na(44,2812
+bool guard_x(46,2921
+bool guard_y(47,2997
+bool guard_z(48,3073
+bool guard_true(49,3149
+bool guard_false(50,3225
+bool guard_na(51,3301
+static int get_counters_sum(53,3378
+
+sm_types.h,1678
+typedef unsigned int uint;5,36
+#define xstr(8,166
+#define str(9,189
+#define SM_ALL_STATES 12,210
+#define ST(17,454
+typedef enum { SM_ALL_STATES 18,471
+typedef enum { SM_ALL_STATES } states_enm;18,471
+#undef  ST19,514
+#define SM_ALL_EVENTS 21,526
+#define EV(26,740
+typedef enum { SM_ALL_EVENTS 27,757
+typedef enum { SM_ALL_EVENTS } events_enm;27,757
+#undef EV28,800
+    uint    entry_counter;32,899
+    uint    exit_counter;33,926
+} state_data_t;34,952
+    uint    sets_count;37,1053
+    uint    states_counter[states_counter38,1133
+    uint    events_counter[events_counter39,1172
+} sm_data_t;40,1208
+typedef state_data_t* (*entAc_fp)entAc_fp42,1222
+typedef state_data_t* (*extAc_fp)extAc_fp43,1313
+typedef sm_data_t*    (*trnAc_fp)trnAc_fp44,1403
+typedef bool          (*guard_fp)guard_fp45,1494
+    const states_enm        state_id;48,1590
+    state_data_t*           state_data;49,1684
+    entAc_fp                entry_ac;50,1760
+    extAc_fp                exit_ac;51,1842
+    const uint              transitions_count;53,1910
+    const events_enm* const ev_tbl;54,2001
+    const guard_fp*         guard_tbl;55,2096
+    const char* const*      guard_str_tbl;56,2167
+    const trnAc_fp*         tafp_tbl;57,2259
+    const char* const*      trnAc_str_tbl;58,2334
+    const states_enm* const next_st_tbl;59,2426
+} state_t;60,2504
+    const char* const       set_name;63,2533
+    const states_enm        init_state;64,2571
+    const uint              states_count;65,2611
+    const state_t* const    state_tbl;66,2653
+    const events_enm* const events_tbl;67,2692
+    const state_t*          csp;68,2732
+} states_set_t;69,2765
+
+sm_funcs.h,0
+
+sm_engine.h,0

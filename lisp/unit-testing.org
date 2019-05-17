@@ -1,0 +1,178 @@
+#+TITLE: MVE Lisp Unit Testing
+#+DATE: <2015-12-11 Fri>
+#+AUTHOR: Brian Beckman
+#+EMAIL: bbeckman@amazon.com
+#+OPTIONS: ':t *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:(not LOGBOOK) date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t toc:t todo:t |:t
+#+CREATOR: Emacs 24.3.1 (Org mode 8.0.7)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+LaTeX_CLASS_OPTIONS: [10pt,oneside,x11names]
+#+LaTeX_HEADER: \usepackage{geometry}
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage{siunitx}
+#+LaTeX_HEADER: \usepackage{braket}
+#+LaTeX_HEADER: \usepackage[euler-digits,euler-hat-accent]{eulervm}
+#+OPTIONS: toc:2
+
+* Preliminaries
+
+#+BEGIN_SRC emacs-lisp :results output :exports results :tangle no
+  (princ (concat (format "Emacs version: %s\n" (emacs-version))
+                 (format "org version: %s\n" (org-version))))
+  (setq org-confirm-babel-evaluate nil)
+  (org-babel-map-src-blocks nil (org-babel-remove-result))
+#+END_SRC
+
+#+RESULTS:
+: Emacs version: GNU Emacs 24.5.1 (x86_64-apple-darwin13.4.0, NS apple-appkit-1265.21)
+:  of 2015-04-10 on builder10-9.porkrind.org
+: org version: 8.3.1
+
+  This is version 0.0.1 of my unit-testing MVE (Minimal Viable Example) in
+  Common Lisp.
+
+** How to Use this Document
+
+   This is a literate program. Code and documentation are contained in a single
+   "org-mode" file called =sm3.org=. Typeset the document by running the emacs
+   command =org-latex-export-to-pdf=. If you're a VIM user, use
+   /Spacemacs/[fn:spac], a near-perfect emulation of VIM in emacs. Extract code
+   from this document via =org-babel-tangle=.  See http://tinyurl.com/hpdvpxm
+   for more.
+
+[fn:spac] http://spacemacs.org
+
+* Running Tests
+
+  The easiest way to run the code in this file is interactively, directly in the
+  org-mode buffer. The easiest way to do that is to
+
+  1. Extract the code in this file /via/ =org-babel-tangle=
+  2. Run the following block; just put the cursor inside the block and type
+     =Ctrl-C Ctrl-C=
+
+  If, after tangling, you want to run the code from the command line, outside of
+  this buffer, just load =really-run-tests.lisp=.
+
+  I think it's possible to run the entire thing interactively without tangling
+  first, but it's not easy.
+
+  When we want the condition-catching extensions, we must load =lisp-unit= /via/
+  =quickload=. See https://github.com/OdonataResearchLLC/lisp-unit/wiki and
+  https://www.quicklisp.org/.
+
+#+BEGIN_SRC lisp :results output :exports both :tangle really-run-tests.lisp
+  (load "~/quicklisp/setup.lisp")
+  (ql:quickload :lisp-unit)
+  (setf *print-failures* t)
+  (load "unit-testing.lisp")
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+To load "lisp-unit":
+  Load 1 ASDF system:
+    lisp-unit
+; Loading "lisp-unit"
+
+Unit Test Summary
+ | 17 assertions total
+ | 17 passed
+ | 0 failed
+ | 3 execution errors
+ | 0 missing tests
+
+#+end_example
+
+** Setup
+
+#+BEGIN_SRC lisp :results none :exports both :tangle yes
+  (defpackage :unit-test-testing3
+    (:use :common-lisp)
+    (:use :lisp-unit)
+    #+sbcl (:use :sb-ext))
+  (in-package :unit-test-testing3)
+#+END_SRC
+
+* The Code to Test
+** Take, Drop
+
+#+BEGIN_SRC lisp :results none :exports both :tangle yes
+  (defun take (seq n)
+    "(take seq n) produces the first n elements of the seq. (take seq -n) produces
+    the last n elements of the seq. This works on strings as well."
+    (check-type seq sequence)
+    (check-type n integer)
+    (let ((l (length seq)))
+      (cond ((>= n 0) (subseq seq 0 (min n l)))
+            ((<  n 0) (subseq seq (max 0 (+ n l)) l))
+            ((=  n 0) (subseq seq 0 0)))))
+
+  (defun drop (seq n)
+    "(drop seq n) produces a the seq with the first n elements removed. (drop seq
+    -n) produces the seq with the last n elements removed. This works on strings
+    as well."
+    (let ((l (length seq)))
+      (check-type seq sequence)
+      (check-type n integer)
+      (cond ((>= n 0) (subseq seq (min n l) l))
+            ((<  n 0) (subseq seq 0 (max 0 (+ n l))))
+            ((=  n 0)  seq))))
+#+END_SRC
+
+** Str-Last
+
+#+BEGIN_SRC lisp :results none :exports both :tangle yes
+  (defun str-last (str)
+    (check-type str string)
+    (let ((l (length str)))
+      (assert (> l 0))
+      (subseq str (- l 1) l)))
+#+END_SRC
+
+* The Tests
+
+#+BEGIN_SRC lisp :results none :exports both :tangle yes
+  (define-test assert-true
+    "t is true."
+    (assert-true t))
+
+  (define-test take-zero ()
+    (assert-equal "" (take "asdf" 0)))
+
+  (define-test take-one ()
+    (assert-equal "a" (take "asdf"  1))
+    (assert-equal "f" (take "asdf" -1)))
+
+  (define-test take-empty ()
+    (assert-equal "" (take ""  1))
+    (assert-equal "" (take "" -1))
+    (assert-equal "" (take ""  0)))
+
+  (define-test take-too-many ()
+    (assert-equal "asdf" (take "asdf"  12))
+    (assert-equal "asdf" (take "asdf" -12)))
+
+  (define-test test-float-test ()
+    (assert-float-equal 2.0 (+ 1.0 1.0)))
+
+  (define-test type-errors ()
+    (assert-error 'type-error
+                  (take 42 42)))
+
+  (defmacro m-test-string-take (str)
+    `(define-test m-take-zero ()
+      (assert-equal "" (take ,str 0))))
+
+  (m-test-string-take "asdf")
+#+END_SRC
+
+#+BEGIN_SRC lisp :results none :exports both :tangle yes
+  (run-tests :all)
+#+END_SRC
