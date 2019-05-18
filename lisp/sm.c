@@ -1,6 +1,6 @@
-/*      Compiler: ECL 16.1.3                                          */
-/*      Date: 2017/10/20 12:00 (yyyy/mm/dd)                           */
-/*      Machine: Darwin 15.6.0 x86_64                                 */
+/*      Compiler: ECL 16.1.2                                          */
+/*      Date: 2019/5/18 12:08 (yyyy/mm/dd)                            */
+/*      Machine: Linux 4.18.0-20-generic x86_64                       */
 /*      Source: sm.lisp                                               */
 #include <ecl/ecl-cmp.h>
 #include "sm.h"
@@ -8,7 +8,6 @@
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L1make_vertex_t(cl_narg narg, ...)
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -38,7 +37,6 @@ static cl_object L1make_vertex_t(cl_narg narg, ...)
 static cl_object L2coin()
 {
  cl_object T0;
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -55,7 +53,6 @@ TTL:
 static cl_object L3take(cl_object v1seq, cl_object v2n)
 {
  cl_object T0, T1;
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -106,7 +103,6 @@ L18:;
 static cl_object L4drop(cl_object v1seq, cl_object v2n)
 {
  cl_object T0, T1;
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -158,7 +154,6 @@ L18:;
 static cl_object L5str_last(cl_object v1str)
 {
  cl_object T0;
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -191,7 +186,6 @@ L12:;
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L6vertex_1_entry()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -206,7 +200,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L7vertex_2_entry()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -221,7 +214,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L8vertex_3_entry()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -236,7 +228,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L9vertex_4_entry()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -251,7 +242,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L10vertex_1_do()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -266,7 +256,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L11vertex_2_do()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -281,7 +270,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L12vertex_3_do()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -296,7 +284,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L13vertex_4_do()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -311,7 +298,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L14vertex_1_exit()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -326,7 +312,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L15vertex_2_exit()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -341,7 +326,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L16vertex_3_exit()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -356,7 +340,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L17vertex_4_exit()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -371,7 +354,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L18act_a()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -386,7 +368,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L19act_b()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -401,7 +382,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L20act_c()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -416,7 +396,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L21act_d()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -431,7 +410,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L22act_na()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -446,7 +424,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L23guard_x()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -460,7 +437,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L24guard_y()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -474,7 +450,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L25guard_z()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -488,7 +463,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L26guard_true()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -503,7 +477,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L27guard_false()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -518,7 +491,6 @@ TTL:
 /*      optimize speed 3, debug 0, space 0, safety 2                  */
 static cl_object L28guard_na()
 {
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -534,7 +506,6 @@ TTL:
 static cl_object LC29defvertex(cl_object v1, cl_object v2)
 {
  cl_object T0, T1, T2, T3, T4, T5, T6, T7, T8, T9;
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -600,7 +571,7 @@ L14:;
      T5 = cl_read(1, v11s);
     }
     T6 = cl_list(2, ECL_SYM("FUNCTION",396), T5);
-    T7 = cl_list(11, VV[3], ECL_SYM("NAME",1285), T0, VV[60], T2, VV[61], T4, VV[62], T6, VV[63], v5evt_tbl);
+    T7 = cl_list(11, VV[3], ECL_SYM("NAME",1278), T0, VV[60], T2, VV[61], T4, VV[62], T6, VV[63], v5evt_tbl);
     T8 = cl_list(3, ECL_SYM("DEFPARAMETER",285), v10vtxsym, T7);
     T9 = cl_list(3, ECL_SYM("PUSH",677), v10vtxsym, VV[53]);
     value0 = cl_list(3, ECL_SYM("PROGN",671), T8, T9);
@@ -614,7 +585,6 @@ L14:;
 static cl_object L30eval_first_admissible_triple(cl_object v1triples)
 {
  cl_object T0;
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -661,7 +631,6 @@ L1:;
 static cl_object L31sm_engine(cl_object v1event_symbol)
 {
  cl_object T0, T1;
- cl_object env0;
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
  ecl_cs_check(cl_env_copy,value0);
@@ -689,7 +658,7 @@ L3:;
 #ifdef __cplusplus
 extern "C"
 #endif
-ECL_DLLEXPORT void _eclkMcN9jNlHAQGR_prCSpR31(cl_object flag)
+ECL_DLLEXPORT void _eclkYoiUpRPXONmP_UbVc3K41(cl_object flag)
 {
  const cl_env_ptr cl_env_copy = ecl_process_env();
  cl_object value0;
@@ -704,166 +673,162 @@ ECL_DLLEXPORT void _eclkMcN9jNlHAQGR_prCSpR31(cl_object flag)
  flag->cblock.data_text = compiler_data_text;
  flag->cblock.cfuns_size = compiler_cfuns_size;
  flag->cblock.cfuns = compiler_cfuns;
- flag->cblock.source = make_constant_base_string("/Users/bbeckman/Documents/AdnModelChecking/sm/lisp/sm.lisp");
+ flag->cblock.source = make_constant_base_string("/home/brianbeckman/Documents/GitHub/state_machine_common_lisp/lisp/sm.lisp");
  return;}
  #ifdef ECL_DYNAMIC_VV
  VV = Cblock->cblock.data;
  #endif
- Cblock->cblock.data_text = (const cl_object *)"@EcLtAg:_eclkMcN9jNlHAQGR_prCSpR31@";
+ Cblock->cblock.data_text = (const cl_object *)"@EcLtAg:_eclkYoiUpRPXONmP_UbVc3K41@";
  VVtemp = Cblock->cblock.temp_data;
  ECL_DEFINE_SETF_FUNCTIONS
   si_define_structure(15, VV[0], VVtemp[0], ECL_NIL, ECL_NIL, VVtemp[1], VVtemp[2], VV[1], ECL_NIL, ECL_NIL, ECL_NIL, VVtemp[3], ecl_make_fixnum(5), ECL_NIL, ECL_NIL, VV[2]);
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[0], ECL_SYM("LOCATION",1789), VVtemp[4], VVtemp[5]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[3], ECL_SYM("LOCATION",1789), VVtemp[6], VVtemp[5]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[3], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[7]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[0], ECL_SYM("LOCATION",1777), VVtemp[4], VVtemp[5]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[3], ECL_SYM("LOCATION",1777), VVtemp[6], VVtemp[5]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[3], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[7]) /*  ANNOTATE */;
   VV[4]= cl_find_class(1, VV[0]);
   ecl_cmp_defun(VV[79]);                          /*  MAKE-VERTEX-T   */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[5], ECL_SYM("LOCATION",1789), VVtemp[8], VVtemp[9]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[5], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[5], ECL_SYM("LOCATION",1777), VVtemp[8], VVtemp[9]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[5], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[85]);                          /*  COIN            */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[6], ECL_SYM("LOCATION",1789), VVtemp[10], VVtemp[11]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[6], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[12]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[6], ECL_SYM("LOCATION",1777), VVtemp[10], VVtemp[11]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[6], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[12]) /*  ANNOTATE */;
   ecl_cmp_defun(VV[86]);                          /*  TAKE            */
   si_set_documentation(3, VV[6], ECL_SYM("FUNCTION",396), VVtemp[13]);
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[9], ECL_SYM("LOCATION",1789), VVtemp[14], VVtemp[15]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[9], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[12]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[9], ECL_SYM("LOCATION",1777), VVtemp[14], VVtemp[15]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[9], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[12]) /*  ANNOTATE */;
   ecl_cmp_defun(VV[87]);                          /*  DROP            */
   si_set_documentation(3, VV[9], ECL_SYM("FUNCTION",396), VVtemp[16]);
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[10], ECL_SYM("LOCATION",1789), VVtemp[17], VVtemp[18]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[10], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[19]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[10], ECL_SYM("LOCATION",1777), VVtemp[17], VVtemp[18]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[10], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[19]) /*  ANNOTATE */;
   ecl_cmp_defun(VV[88]);                          /*  STR-LAST        */
   si_set_documentation(3, VV[10], ECL_SYM("FUNCTION",396), VVtemp[20]);
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[13], ECL_SYM("LOCATION",1789), VVtemp[21], VVtemp[22]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[13], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[13], ECL_SYM("LOCATION",1777), VVtemp[21], VVtemp[22]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[13], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[89]);                          /*  VERTEX-1-ENTRY  */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[15], ECL_SYM("LOCATION",1789), VVtemp[23], VVtemp[24]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[15], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[15], ECL_SYM("LOCATION",1777), VVtemp[23], VVtemp[24]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[15], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[90]);                          /*  VERTEX-2-ENTRY  */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[17], ECL_SYM("LOCATION",1789), VVtemp[25], VVtemp[26]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[17], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[17], ECL_SYM("LOCATION",1777), VVtemp[25], VVtemp[26]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[17], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[91]);                          /*  VERTEX-3-ENTRY  */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[19], ECL_SYM("LOCATION",1789), VVtemp[27], VVtemp[28]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[19], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[19], ECL_SYM("LOCATION",1777), VVtemp[27], VVtemp[28]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[19], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[92]);                          /*  VERTEX-4-ENTRY  */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[21], ECL_SYM("LOCATION",1789), VVtemp[29], VVtemp[30]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[21], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[21], ECL_SYM("LOCATION",1777), VVtemp[29], VVtemp[30]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[21], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[93]);                          /*  VERTEX-1-DO     */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[23], ECL_SYM("LOCATION",1789), VVtemp[31], VVtemp[32]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[23], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[23], ECL_SYM("LOCATION",1777), VVtemp[31], VVtemp[32]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[23], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[94]);                          /*  VERTEX-2-DO     */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[25], ECL_SYM("LOCATION",1789), VVtemp[33], VVtemp[34]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[25], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[25], ECL_SYM("LOCATION",1777), VVtemp[33], VVtemp[34]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[25], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[95]);                          /*  VERTEX-3-DO     */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[27], ECL_SYM("LOCATION",1789), VVtemp[35], VVtemp[36]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[27], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[27], ECL_SYM("LOCATION",1777), VVtemp[35], VVtemp[36]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[27], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[96]);                          /*  VERTEX-4-DO     */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[29], ECL_SYM("LOCATION",1789), VVtemp[37], VVtemp[38]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[29], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[29], ECL_SYM("LOCATION",1777), VVtemp[37], VVtemp[38]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[29], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[97]);                          /*  VERTEX-1-EXIT   */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[31], ECL_SYM("LOCATION",1789), VVtemp[39], VVtemp[40]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[31], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[31], ECL_SYM("LOCATION",1777), VVtemp[39], VVtemp[40]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[31], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[98]);                          /*  VERTEX-2-EXIT   */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[33], ECL_SYM("LOCATION",1789), VVtemp[41], VVtemp[42]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[33], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[33], ECL_SYM("LOCATION",1777), VVtemp[41], VVtemp[42]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[33], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[99]);                          /*  VERTEX-3-EXIT   */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[35], ECL_SYM("LOCATION",1789), VVtemp[43], VVtemp[44]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[35], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[35], ECL_SYM("LOCATION",1777), VVtemp[43], VVtemp[44]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[35], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[100]);                         /*  VERTEX-4-EXIT   */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[37], ECL_SYM("LOCATION",1789), VVtemp[45], VVtemp[46]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[37], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[37], ECL_SYM("LOCATION",1777), VVtemp[45], VVtemp[46]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[37], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[101]);                         /*  ACT-A           */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[39], ECL_SYM("LOCATION",1789), VVtemp[47], VVtemp[48]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[39], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[39], ECL_SYM("LOCATION",1777), VVtemp[47], VVtemp[48]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[39], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[102]);                         /*  ACT-B           */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[41], ECL_SYM("LOCATION",1789), VVtemp[49], VVtemp[50]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[41], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[41], ECL_SYM("LOCATION",1777), VVtemp[49], VVtemp[50]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[41], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[103]);                         /*  ACT-C           */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[43], ECL_SYM("LOCATION",1789), VVtemp[51], VVtemp[52]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[43], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[43], ECL_SYM("LOCATION",1777), VVtemp[51], VVtemp[52]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[43], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[104]);                         /*  ACT-D           */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[45], ECL_SYM("LOCATION",1789), VVtemp[53], VVtemp[54]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[45], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[45], ECL_SYM("LOCATION",1777), VVtemp[53], VVtemp[54]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[45], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[105]);                         /*  ACT-NA          */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[47], ECL_SYM("LOCATION",1789), VVtemp[55], VVtemp[56]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[47], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[47], ECL_SYM("LOCATION",1777), VVtemp[55], VVtemp[56]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[47], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[106]);                         /*  GUARD-X         */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[48], ECL_SYM("LOCATION",1789), VVtemp[57], VVtemp[58]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[48], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[48], ECL_SYM("LOCATION",1777), VVtemp[57], VVtemp[58]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[48], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[107]);                         /*  GUARD-Y         */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[49], ECL_SYM("LOCATION",1789), VVtemp[59], VVtemp[60]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[49], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[49], ECL_SYM("LOCATION",1777), VVtemp[59], VVtemp[60]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[49], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[108]);                         /*  GUARD-Z         */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[50], ECL_SYM("LOCATION",1789), VVtemp[61], VVtemp[62]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[50], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[50], ECL_SYM("LOCATION",1777), VVtemp[61], VVtemp[62]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[50], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[109]);                         /*  GUARD-TRUE      */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[51], ECL_SYM("LOCATION",1789), VVtemp[63], VVtemp[64]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[51], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[51], ECL_SYM("LOCATION",1777), VVtemp[63], VVtemp[64]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[51], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[110]);                         /*  GUARD-FALSE     */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[52], ECL_SYM("LOCATION",1789), VVtemp[65], VVtemp[66]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[52], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[52], ECL_SYM("LOCATION",1777), VVtemp[65], VVtemp[66]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[52], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, ECL_NIL) /*  ANNOTATE */;
   ecl_cmp_defun(VV[111]);                         /*  GUARD-NA        */
   si_Xmake_special(VV[53]);
   cl_set(VV[53],ECL_NIL);
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[53], ECL_SYM("LOCATION",1789), VVtemp[67], VVtemp[68]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[54], ECL_SYM("LOCATION",1789), VVtemp[69], VVtemp[70]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[54], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[71]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[53], ECL_SYM("LOCATION",1777), VVtemp[67], VVtemp[68]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[54], ECL_SYM("LOCATION",1777), VVtemp[69], VVtemp[70]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[54], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[71]) /*  ANNOTATE */;
   ecl_cmp_defmacro(VV[112]);                      /*  DEFVERTEX       */
  {
   cl_object T0, T1, T2, T3;
-  cl_object volatile env0;
   si_Xmake_special(VV[64]);
   T0 = cl_format(3, ECL_NIL, VV[59], VVtemp[72]);
   T1 = ecl_fdefinition(VV[13]);
   T2 = ecl_fdefinition(VV[21]);
   T3 = ecl_fdefinition(VV[29]);
-  cl_set(VV[64],L1make_vertex_t(10, ECL_SYM("NAME",1285), T0, VV[60], T1, VV[61], T2, VV[62], T3, VV[63], VVtemp[73]));
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[64], ECL_SYM("LOCATION",1789), VVtemp[74], VVtemp[75]) /*  ANNOTATE */;
+  cl_set(VV[64],L1make_vertex_t(10, ECL_SYM("NAME",1278), T0, VV[60], T1, VV[61], T2, VV[62], T3, VV[63], VVtemp[73]));
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[64], ECL_SYM("LOCATION",1777), VVtemp[74], VVtemp[75]) /*  ANNOTATE */;
   cl_set(VV[53],CONS(ecl_symbol_value(VV[64]),ecl_symbol_value(VV[53])));
  }
  {
   cl_object T0, T1, T2, T3;
-  cl_object volatile env0;
   si_Xmake_special(VV[65]);
   T0 = cl_format(3, ECL_NIL, VV[59], VVtemp[76]);
   T1 = ecl_fdefinition(VV[15]);
   T2 = ecl_fdefinition(VV[23]);
   T3 = ecl_fdefinition(VV[31]);
-  cl_set(VV[65],L1make_vertex_t(10, ECL_SYM("NAME",1285), T0, VV[60], T1, VV[61], T2, VV[62], T3, VV[63], VVtemp[77]));
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[65], ECL_SYM("LOCATION",1789), VVtemp[78], VVtemp[79]) /*  ANNOTATE */;
+  cl_set(VV[65],L1make_vertex_t(10, ECL_SYM("NAME",1278), T0, VV[60], T1, VV[61], T2, VV[62], T3, VV[63], VVtemp[77]));
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[65], ECL_SYM("LOCATION",1777), VVtemp[78], VVtemp[79]) /*  ANNOTATE */;
   cl_set(VV[53],CONS(ecl_symbol_value(VV[65]),ecl_symbol_value(VV[53])));
  }
  {
   cl_object T0, T1, T2, T3;
-  cl_object volatile env0;
   si_Xmake_special(VV[66]);
   T0 = cl_format(3, ECL_NIL, VV[59], VVtemp[80]);
   T1 = ecl_fdefinition(VV[17]);
   T2 = ecl_fdefinition(VV[25]);
   T3 = ecl_fdefinition(VV[33]);
-  cl_set(VV[66],L1make_vertex_t(10, ECL_SYM("NAME",1285), T0, VV[60], T1, VV[61], T2, VV[62], T3, VV[63], VVtemp[81]));
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[66], ECL_SYM("LOCATION",1789), VVtemp[82], VVtemp[83]) /*  ANNOTATE */;
+  cl_set(VV[66],L1make_vertex_t(10, ECL_SYM("NAME",1278), T0, VV[60], T1, VV[61], T2, VV[62], T3, VV[63], VVtemp[81]));
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[66], ECL_SYM("LOCATION",1777), VVtemp[82], VVtemp[83]) /*  ANNOTATE */;
   cl_set(VV[53],CONS(ecl_symbol_value(VV[66]),ecl_symbol_value(VV[53])));
  }
  {
   cl_object T0, T1, T2, T3;
-  cl_object volatile env0;
   si_Xmake_special(VV[67]);
   T0 = cl_format(3, ECL_NIL, VV[59], VVtemp[84]);
   T1 = ecl_fdefinition(VV[19]);
   T2 = ecl_fdefinition(VV[27]);
   T3 = ecl_fdefinition(VV[35]);
-  cl_set(VV[67],L1make_vertex_t(10, ECL_SYM("NAME",1285), T0, VV[60], T1, VV[61], T2, VV[62], T3, VV[63], VVtemp[85]));
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[67], ECL_SYM("LOCATION",1789), VVtemp[86], VVtemp[87]) /*  ANNOTATE */;
+  cl_set(VV[67],L1make_vertex_t(10, ECL_SYM("NAME",1278), T0, VV[60], T1, VV[61], T2, VV[62], T3, VV[63], VVtemp[85]));
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[67], ECL_SYM("LOCATION",1777), VVtemp[86], VVtemp[87]) /*  ANNOTATE */;
   cl_set(VV[53],CONS(ecl_symbol_value(VV[67]),ecl_symbol_value(VV[53])));
  }
   si_Xmake_special(VV[68]);
   cl_set(VV[68],ecl_symbol_value(VV[64]));
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[68], ECL_SYM("LOCATION",1789), VVtemp[88], VVtemp[89]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[69], ECL_SYM("LOCATION",1789), VVtemp[90], VVtemp[91]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[69], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[92]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[68], ECL_SYM("LOCATION",1777), VVtemp[88], VVtemp[89]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[69], ECL_SYM("LOCATION",1777), VVtemp[90], VVtemp[91]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[69], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[92]) /*  ANNOTATE */;
   ecl_cmp_defun(VV[113]);                         /*  EVAL-FIRST-ADMISSIBLE-TRIPLE */
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[72], ECL_SYM("LOCATION",1789), VVtemp[93], VVtemp[94]) /*  ANNOTATE */;
-  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1783))(4, VV[72], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[95]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[72], ECL_SYM("LOCATION",1777), VVtemp[93], VVtemp[94]) /*  ANNOTATE */;
+  ecl_function_dispatch(cl_env_copy,ECL_SYM("ANNOTATE",1771))(4, VV[72], ECL_SYM("LAMBDA-LIST",998), ECL_NIL, VVtemp[95]) /*  ANNOTATE */;
   ecl_cmp_defun(VV[117]);                         /*  SM-ENGINE       */
   {
    bool v1;
@@ -877,7 +842,6 @@ ECL_DLLEXPORT void _eclkMcN9jNlHAQGR_prCSpR31(cl_object flag)
   }
  {
   cl_object T0;
-  cl_object volatile env0;
   T0 = L31sm_engine(VV[74]);
   {
    bool v1;
@@ -887,7 +851,6 @@ ECL_DLLEXPORT void _eclkMcN9jNlHAQGR_prCSpR31(cl_object flag)
  }
  {
   cl_object T0;
-  cl_object volatile env0;
   T0 = L31sm_engine(VV[75]);
   {
    bool v1;
@@ -897,7 +860,6 @@ ECL_DLLEXPORT void _eclkMcN9jNlHAQGR_prCSpR31(cl_object flag)
  }
  {
   cl_object T0;
-  cl_object volatile env0;
   T0 = L31sm_engine(VV[76]);
   {
    bool v1;
@@ -907,7 +869,6 @@ ECL_DLLEXPORT void _eclkMcN9jNlHAQGR_prCSpR31(cl_object flag)
  }
  {
   cl_object T0;
-  cl_object volatile env0;
   T0 = L31sm_engine(VV[77]);
   {
    bool v1;
@@ -917,7 +878,6 @@ ECL_DLLEXPORT void _eclkMcN9jNlHAQGR_prCSpR31(cl_object flag)
  }
  {
   cl_object T0;
-  cl_object volatile env0;
   T0 = L31sm_engine(VV[78]);
   {
    bool v1;

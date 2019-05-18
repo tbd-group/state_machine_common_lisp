@@ -567,6 +567,7 @@
    deadlock with SLIME as they contend over who has the terminal.
 
 #+BEGIN_SRC lisp :exports both :results none :tangle no
+  '(load "sm.lisp")
   '(let ((ev 1024))
     (loop while (> ev 0) do
       (format t "~%Enter an event number > 0, 0 to quit: ")
