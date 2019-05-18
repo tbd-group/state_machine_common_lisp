@@ -30,9 +30,9 @@
 #+END_SRC
 
 #+RESULTS:
-: Emacs version: GNU Emacs 25.3.1 (x86_64-apple-darwin13.4.0, NS appkit-1265.21 Version 10.9.5 (Build 13F1911))
-:  of 2017-09-12
-: org version: 9.1.6
+: Emacs version: GNU Emacs 26.2 (build 2, x86_64-pc-linux-gnu, GTK+ Version 3.24.4)
+:  of 2019-04-12
+: org version: 9.2.2
 
   This is version 0.0.4 of Uri Ran's State-Machine demo.
 
@@ -44,9 +44,11 @@
    /Spacemacs/[fn:spac], a near-perfect emulation of VIM in emacs. See the
    section "Running Code" for instructions on running the code in this document.
 
-[fn:spac] http://spacemacs.org
+   To "tangle" or extract the code from this document, run the emacs command
+   =org-babel-tangle= or =C-c C-v t=. You may also run the code in-line by
+   typing =C-c C-c= with the cursor in any code block.
 
-** Setup
+[fn:spac] http://spacemacs.org
 
 * Vertex Struct
 
@@ -57,36 +59,39 @@
   Consider a unique variable or /token/ called ~*current-vertex*~. The value of
   this token represents the vertex that the state machine /inhabits/. The state
   machine may inhabit exactly one vertex at any time. Visualize the dynamics of
-  the machine as a sequence of indivisible, atomic steps in which the token
+  the machine as a sequence of atomic steps in which the token
   either stays within the current vertex or moves from one vertex to another in
   response to /events/ or /inputs/. Events or inputs are denoted by /symbols/
   drawn from a finite /alphabet/, one at a time.
 
   Entry actions run whenever the ~*current-vertex*~ token enters a vertex.
-  Exit actions run when the ~*current-vertex*~ token leaves a vertex.
+  Exit actions run whenever the ~*current-vertex*~ token leaves a vertex.
 
   Do-actions concern /polling/, not further discussed here. Although we define
   do-actions here, we don't use them; they're a placeholder in this version.
 
+** Running the Machine
+   <<section:running>>
+
   An /event table/ is an associative lookup table from event symbols to a list
   of triples. Each triple has a Boolean-valued /guard function/, a
-  /transition-action/ function, and a new vertex. The engine will ~funcall~ the
-  guards in the list, in the order they're presentated, and accept the first
-  triple whose guard returns ~t~, which means /true/ in Lisp. "Accepting the
-  triple" means running the /transition action/ and moving the token to the new
-  vertex if the new vertex is non-nil (TODO: what if the new vertex is /nil/?).
-  The exit action of the old vertex runs and then the entry action of the new
-  vertex runs. If no guards return ~t~, the engine logs a trace message and does
-  nothing.
+  /transition-action/ or /edge-action/ function, and a new vertex. The engine
+  will ~funcall~ the guards in the list, in the order they're presentated, and
+  accept the first triple whose guard returns ~t~, which means /true/ in Lisp.
+  "Accepting the triple" means running the /transition action/ and moving the
+  token to the new vertex if the new vertex is non-nil (TODO: what if the new
+  vertex is /nil/?). The exit action of the old vertex runs next, after the
+  transition action, and then the entry action of the new vertex runs. If no
+  guards return ~t~, the engine logs a trace message and does nothing.
 
   The following lisp code defines the vertex struct.
 
 #+BEGIN_SRC lisp :exports code :tangle yes :results none
-  (Defstruct vertex-t name entry-ac do-ac exit-ac evt-tbl)
+  (defstruct vertex-t name entry-ac do-ac exit-ac evt-tbl)
 #+END_SRC
 
   ~defstruct~ gives us basic constructors and accessors, and that's all we need
-  for this demonstration. Should we need more in the future, we can consider
+  for this demonstration. Should we need more in the future, consider
   Lisp's ~defclass~.
 
   As a side-effect of calling ~defstruct~, Lisp defines the following functions
@@ -117,6 +122,7 @@
     don't need to do this here.
 
 * Utilities
+
 ** Boolean fair coin
 
     For fuzz testing.
@@ -125,7 +131,13 @@
   (defun coin () (= 0 (random 2)))
 #+END_SRC
 
-** Take & Drop
+** LINQ: Take & Drop
+
+   The following are convenience functions for manipulating lists. They are
+   derived from =LINQ= (Language Integrated Query) [TODO: reference?]. A
+   separate and independent unit test for these functions exists in the
+   directory of this project [TODO: bring unit tests into this literate
+   program.
 
 #+BEGIN_SRC lisp :results none :exports both :tangle yes
   (defun take (seq n)
@@ -160,7 +172,7 @@
 
 ** Drawing to DOT
 
-   Borrowed from "Land of Lisp" by Conrad Barski, M.D.
+   Borrowed from "Land of Lisp" by Conrad Barski, M.D. [TODO: reference]
 
 *** TODO Robustify
 
@@ -261,10 +273,10 @@
 
 *** Vertex Actions
 
-    For entry, polling (undefined) and exit, respectively.
+    For entry, polling (currently undefined) and exit, respectively.
 
     Our actions just print to standard output because this is just a demo.  They
-    might do arbitrary side effects.
+    might have arbitrary side effects.
 
 #+BEGIN_SRC lisp :exports both :tangle yes :results none
   (defun vertex-1-entry () (print "vertex 1 entry"))
@@ -283,7 +295,7 @@
   (defun vertex-4-exit  () (print "vertex 4 exit"))
 #+END_SRC
 
-*** Edge Actions
+*** Edge (Transition) Actions
 
     When the engine takes a transition, moving the token from one vertex to
     another, it runs these functions.
@@ -310,11 +322,12 @@
 * The Diagram
 
     If ~nym~ is $\texttt{"foo"}$, we want functions ~foo-entry~, ~foo-do~, and
-    ~foo-exit~ automatically assigned.  The following macro expands into the
+    ~foo-exit~ automatically assigned. The following macro expands into the
     boilerplate necessary for creating instances of ~vertex-t~. These instances
     are stored in global /special variables/ demarcated with asterisks, for
-    example, ~*vertex-1*~. Special variables are basically global variables, but
-    there are some subtleties that don't concern us here.[fn:idio]
+    example, ~*vertex-1*~. Special variables are global variables, but there are
+    some subtle distinctions between global variables and special variables that
+    don't concern us here.[fn:idio]
 
     The macro works by defining some strings for the identifiers based off the
     ~nym~, converting them to symbols, and writing out new code that defines,
@@ -332,7 +345,7 @@
    # at the command line. A half-hearted attempt to resolve this problem
    # according to http://tinyurl.com/nmm5ltb did not succeed. We can fix it by
    # putting extra defparameters for *vertex-1* etc. before the defvertex calls,
-   # but this is ugly because it requires us to repeat ourselves. We'll ignore
+   # but such is ugly because it requires us to repeat ourselves. We ignore
    # this issue for now.
 
 #+BEGIN_SRC lisp :exports both :tangle yes :results none
@@ -426,9 +439,9 @@
 
 **** Eval-First-Admissible-Triple
 
-     This function implements the token-moving strategy discussed above and
-     returns the current value of the token ~*current-vertex*~, whether it's
-     changed or not.
+     This function implements the token-moving strategy discussed in section
+     [[section:running]] above and returns the current value of the token
+     ~*current-vertex*~, whether it's changed or not.
 
      When the new-vertex is ~nil~, the ~*current-vertex*~ does not change and the
      action functions do not run, even if the guard is true.
@@ -486,9 +499,15 @@
    a REPL, and ECL (Embeddable Common Lisp) for generating C code. On a mac,
    this is trivial with homebrew:
 
-   ~brew install sbcl~
+   - ~brew install sbcl~
 
-   ~brew install ecl~
+   - ~brew install ecl~
+
+   It's also trivial on Ubuntu Linux:
+
+   - =sudo apt install sbcl=
+
+   - =sudo apt install ecl=
 
    You will need SLIME in Emacs or Spacemacs to run the code in this file
    directly. Just Google any of these things you don't recognize. I recommend
@@ -500,16 +519,17 @@
 ** Running Code Directly
 
    Once you have SLIME running in Emacs, type =M-x slime= to start the REPL,
-   then type =M-x org-babel-execute-buffer= to run all the code in this file. At
-   the very end of this file, you will see a few unit tests. Put the cursor in
-   that code block and type =C-c C-c= repeatedly to run the unit tests over and
-   over. The results will be slightly different each time because the guard
-   functions do coin flips. I have tried to arrange the unit tests so that the
-   last value always prints =t=, short for =true=.
+   then type =M-x org-babel-execute-buffer= or =C-c C-v b= to run all the code
+   in this file. At the very end of this file, you will see a few unit tests.
+   Put the cursor in that code block and type =C-c C-c= repeatedly to run the
+   unit tests over and over. The results will be slightly different each time
+   because the guard functions do coin flips. I have tried to arrange the unit
+   tests so that the last value always prints =t=, short for =true=.
 
 ** Extracting Code From This File
 
-   Type =M-x org-babel-tangle= and you should get a file named =sm.lisp=.
+   Type =M-x org-babel-tangle= or =C-c C-v t= and you should get a file named
+   =sm.lisp=.
 
 ** Generating, Inspecting, Running C code
 
@@ -581,3 +601,26 @@
   (print (eq (sm-engine 'ev-3) *vertex-1*))
   (print (eq (sm-engine 'ev-2) *vertex-3*))
 #+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+NIL
+NIL
+vertex-3: guard failed; trying next guard
+"vertex 3 exit"
+"action b"
+"vertex 1 entry"
+T
+vertex-1: event EV-4 not found; doing nothing
+T
+vertex-1: event BOGUS not found; doing nothing
+T
+vertex-1: guard failed; trying next guard
+vertex-1: all guards failed; doing nothing
+T
+"vertex 1 exit"
+"action c"
+"vertex 3 entry"
+T
+#+end_example
