@@ -1,4 +1,4 @@
-% Created 2019-05-18 Sat 14:48
+% Created 2019-05-18 Sat 14:53
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt,oneside,x11names]{article}
 \usepackage[utf8]{inputenc}
@@ -37,7 +37,7 @@
 
 
 \section{Preliminaries}
-\label{sec:org972d939}
+\label{sec:orgdddc82c}
 
 \begin{verbatim}
 Emacs version: GNU Emacs 26.2 (build 2, x86_64-pc-linux-gnu, GTK+ Version 3.24.4)
@@ -49,7 +49,7 @@ org version: 9.2.2
 This is version 0.0.5 of Uri Ran's State-Machine demo.
 
 \subsection{How to Use this Document}
-\label{sec:org78b2f78}
+\label{sec:org9b717c9}
 
 This is a literate program. Code and documentation cohabit a single
 ``org-mode'' file called \texttt{sm.org}. You must use emacs org-mode and org-babel to
@@ -67,7 +67,7 @@ implementation of Common Lisp. In this document, we demonstrate running the
 code in SBCL[TODO:ref] and ECL[TODO:ref].
 
 \section{Vertex Struct}
-\label{sec:org6a6959a}
+\label{sec:org5db4a5a}
 
 A \emph{vertex} or ``state'' in a state-machine diagram has an \emph{entry action}, a
 \emph{do-action}, an \emph{exit-action}, and an \emph{event table}. We prefer the word
@@ -91,7 +91,7 @@ Do-actions concern \emph{polling}, not further discussed here. Although we defin
 do-actions here, we don't use them; they're a placeholder in this version.
 
 \subsection{Running the Machine}
-\label{sec:orgdbb9b3f}
+\label{sec:orgd6bd79f}
 \label{section:running}
 
 The \emph{event table} of a vertex is an associative lookup table (or dictionary)
@@ -148,17 +148,17 @@ don't need to do so here.
 \end{itemize}
 
 \section{Utilities}
-\label{sec:orga482ae2}
+\label{sec:orgfaf4557}
 
 \subsection{Boolean fair coin}
-\label{sec:org9d6db9e}
+\label{sec:org9136d11}
 
 \begin{verbatim}
 (defun coin () (= 0 (random 2)))
 \end{verbatim}
 
 \subsection{LINQ}
-\label{sec:org04e7a96}
+\label{sec:orgab8d812}
 
 The following are convenience functions for manipulating lists. They are
 derived from \texttt{LINQ} (Language Integrated Query) [TODO: reference?]. Find a
@@ -197,12 +197,12 @@ this project [TODO: bring unit tests into this literate program.
 \end{verbatim}
 
 \subsection{Drawing to DOT}
-\label{sec:org0841290}
+\label{sec:org13ff9aa}
 
 Borrowed from ``Land of Lisp'' by Conrad Barski, M.D. [TODO: reference]
 
 \subsubsection{{\bfseries\sffamily TODO} Robustify}
-\label{sec:org94d5c5c}
+\label{sec:org1d4cf98}
 
 a-la \url{http://tinyurl.com/y63ugo} and \url{http://tinyurl.com/j23lakq}
 
@@ -288,19 +288,19 @@ a-la \url{http://tinyurl.com/y63ugo} and \url{http://tinyurl.com/j23lakq}
 \end{verbatim}
 
 \section{Action and Guard Functions}
-\label{sec:org89ab90d}
+\label{sec:orga31e3ad}
 
 \subsection{Actions}
-\label{sec:orgae32bb5}
+\label{sec:org5a6db6e}
 
 \subsubsection{{\bfseries\sffamily TODO} Parameters or return values for actions?}
-\label{sec:orgc8adaf4}
+\label{sec:org6ce2efd}
 
 \subsubsection{{\bfseries\sffamily TODO} Contexts for actions and guards}
-\label{sec:org5a40965}
+\label{sec:orgafee06f}
 
 \subsubsection{Vertex Actions}
-\label{sec:org3f140f9}
+\label{sec:orgace8632}
 
 For \emph{entry}, \emph{polling} (currently undefined) and \emph{exit}, respectively.
 
@@ -325,7 +325,7 @@ demo. They might have arbitrary side effects.
 \end{verbatim}
 
 \subsubsection{Edge Actions}
-\label{sec:org0fba3d2}
+\label{sec:orgf3fe985}
 
 When the engine takes a transition, moving the token from one vertex to
 another, it runs these functions.
@@ -340,7 +340,7 @@ another, it runs these functions.
 \end{verbatim}
 
 \subsection{Guards (Boolean-Valued)}
-\label{sec:org4e105af}
+\label{sec:org6928638}
 
 Here are some made-up functions for our example.
 
@@ -354,7 +354,7 @@ Here are some made-up functions for our example.
 \end{verbatim}
 
 \section{The Diagram}
-\label{sec:orgddb6a6b}
+\label{sec:org4a698a8}
 
 If \texttt{nym} is \texttt{foo}, we want functions \texttt{foo-entry}, \texttt{foo-do}, and \texttt{foo-exit}
 automatically assigned. The following macro, \texttt{defvertex}, expands into this
@@ -370,7 +370,7 @@ when \texttt{nym} is \texttt{foo}; \texttt{bar-entry}, etc., when \texttt{nym} i
 defines \texttt{*foo*} and the related functions.
 
 \subsection{How to Define a Vertex}
-\label{sec:orgf21cc51}
+\label{sec:org7ba5b37}
 
 \begin{verbatim}
 (defparameter *vertices* nil)
@@ -392,7 +392,7 @@ defines \texttt{*foo*} and the related functions.
 \end{verbatim}
 
 \subsection{Vertices in Our Example Diagram}
-\label{sec:org2bb3a77}
+\label{sec:orgbfdc25f}
 
 The new vertices in the event table are unevaluated symbols. That's because we
 want to refer to them before they're defined. We know their names at the time
@@ -417,7 +417,7 @@ avoid forward referencing and resolution.
 \end{verbatim}
 
 \subsection{Drawing The Diagram}
-\label{sec:org40d5a36}
+\label{sec:orgee71986}
 
 \begin{verbatim}
 (defparameter *wizard-nodes*
@@ -446,14 +446,14 @@ avoid forward referencing and resolution.
 dot -Tpng -O wizard.dot
 \end{verbatim}
 \begin{center}
-\includegraphics[width=.9\linewidth]{wizard.dot.png}
+\includegraphics[height=3in]{wizard.dot.png}
 \end{center}
 
 \subsection{Simulating Transitions in the Diagram}
-\label{sec:org7455244}
+\label{sec:org5b42445}
 
 \subsubsection{The Vertex Token}
-\label{sec:org619d162}
+\label{sec:org6ca51de}
 
 At any time, the state machine is ``in'' a vertex. This means that the value
 of \texttt{*current-vertex*} is the currently inhabited vertex instance. We call
@@ -465,11 +465,11 @@ moving from one vertex to another.
 \end{verbatim}
 
 \subsubsection{The Engine}
-\label{sec:org572be1f}
+\label{sec:org9dce117}
 
 \begin{enumerate}
 \item Eval-First-Admissible-Triple
-\label{sec:org48ef1eb}
+\label{sec:orgee1e29a}
 
 This function implements the token-moving strategy discussed in section
 \ref{section:running} above and returns the current value of the token
@@ -504,7 +504,7 @@ Our example machine has one self-transition: from \texttt{*vertex-1} to
 \end{verbatim}
 
 \item SM-Engine
-\label{sec:org02238b7}
+\label{sec:org7edc70d}
 
 This takes an event symbol, does lookup in the diagram, and performs the
 indicated transition.
@@ -525,14 +525,14 @@ indicated transition.
 \end{enumerate}
 
 \section{Running the Code}
-\label{sec:orgdc907c0}
+\label{sec:org57ad9d9}
 
 This document contains live code. You can run the code in two ways:
 inside org mode or by extracting (tangling) the code and running it at the
 command line.
 
 \subsection{Setting up Two Good Lisps}
-\label{sec:orgdc61aa7}
+\label{sec:orgbca4ac6}
 
 Install SBCL (Steel Bank Common Lisp)[TODO:ref] for running this code in the
 editor or a REPL, and ECL (Embeddable Common Lisp)[TODO:ref] for generating C
@@ -557,7 +557,7 @@ directly. To find out whether you have slime, type \texttt{M-x slime}. If you do
 have it, get it.
 
 \subsection{Running Code Directly}
-\label{sec:org6d87dd3}
+\label{sec:org75dd436}
 \label{section:running_code_directly}
 
 Once you have SLIME running in Emacs, type \texttt{M-x slime} to start the REPL,
@@ -568,7 +568,7 @@ unit tests over and over. The results will be slightly different each time
 because the guard functions flip coins.
 
 \subsection{Extracting Code From This File}
-\label{sec:orgc9bd7fc}
+\label{sec:org5302f73}
 
 Type \texttt{M-x org-babel-tangle} or \texttt{C-c C-v t} and you should get a file named
 \texttt{sm.lisp}. Run it in SBCL as follows:
@@ -578,7 +578,7 @@ Type \texttt{M-x org-babel-tangle} or \texttt{C-c C-v t} and you should get a fi
 \end{itemize}
 
 \subsection{Generating, Inspecting, Running C code}
-\label{sec:orgd49eb13}
+\label{sec:org594b005}
 
 After extracting code, run ECL at the command prompt:
 \begin{verbatim}
@@ -596,7 +596,7 @@ to run the generated code. You should see exactly the same output as you
 would get from the last section below.
 
 \subsubsection{{\bfseries\sffamily TODO} Create Deeply Embedded C}
-\label{sec:orgb117c91}
+\label{sec:orgad75cf2}
 
 The generated code is in the files \texttt{sm.c}, \texttt{sm.h}, and \texttt{sm.data}. The
 generated code just calls the ECL runtime kernel. This is a
@@ -609,7 +609,7 @@ A good way to produce a deep embedding will be through macros.  The deeply
 embedded code should be comparable to the code that Uri wrote by hand.
 
 \subsection{Interactively}
-\label{sec:org944f6bf}
+\label{sec:orgf0f311c}
 
 To run in an external REPL, paste the following code into the REPL (and
 remove the quote, of course). Don't run this code in emacs; it will deadlock
@@ -635,7 +635,7 @@ as emacs and the program contend over the terminal.
 \end{verbatim}
 
 \subsection{Unit Tests, Exhaustive Tests}
-\label{sec:org0f85a34}
+\label{sec:org5cb2a3f}
 
 Because the current guards are random, exhaustively testing them isn't as
 trivial as enumeration.

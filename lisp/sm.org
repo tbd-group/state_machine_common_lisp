@@ -426,6 +426,8 @@
 #+BEGIN_SRC bash :results none :exports both
   dot -Tpng -O wizard.dot
 #+END_SRC
+#+attr_org: :height 200px
+#+Attr_latex: :height 3in
  [[file:wizard.dot.png]]
 
 ** Simulating Transitions in the Diagram
