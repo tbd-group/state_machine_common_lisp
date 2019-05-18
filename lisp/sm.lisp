@@ -46,11 +46,12 @@
 (defun vertex-3-exit  () (print "vertex 3 exit"))
 (defun vertex-4-exit  () (print "vertex 4 exit"))
 
-(defun act-a () (print "action a" ))
-(defun act-b () (print "action b" ))
-(defun act-c () (print "action c" ))
-(defun act-d () (print "action d" ))
-(defun act-na() (print "action na"))
+(defun act-a    () (print "action a" ))
+(defun act-b    () (print "action b" ))
+(defun act-c    () (print "action c" ))
+(defun act-d    () (print "action d" ))
+(defun act-na   () (print "action na"))
+(defun act-self () (print "self-transition action"))
 
 (defun guard-x     () (coin) )
 (defun guard-y     () (coin) )
@@ -61,8 +62,8 @@
 
 (defparameter *vertices* nil)
 (defmacro defvertex (nym evt-tbl)
-  (let* ((dynvar (format nil "*~A*"     nym))
-         (entry  (format nil "~A-entry" nym))
+  (let* ((dynvar (format nil "*~A*"     nym)) ;; "format nil" means
+         (entry  (format nil "~A-entry" nym)) ;; "write to a string"
          (doo    (format nil "~A-do"    nym))
          (exit   (format nil "~A-exit"  nym))
          (vtxsym (with-input-from-string (s dynvar) (read s))))
@@ -77,19 +78,19 @@
        (push ,vtxsym *vertices*))))
 
 (defvertex "vertex-1"
-    '((ev-2 (guard-true act-c  *vertex-3* ))
-      (ev-3 (guard-x    act-na *vertex-1* ))  ))
+    '((ev-2 (guard-true act-c    *vertex-3* ))
+      (ev-3 (guard-x    act-self *vertex-1* ))  ))
 (defvertex "vertex-2"
-    '((ev-4 (guard-true act-na *vertex-1* ))
-      (ev-6 (guard-x    act-c  *vertex-4* ))  ))
+    '((ev-4 (guard-true act-na   *vertex-1* ))
+      (ev-6 (guard-x    act-c    *vertex-4* ))  ))
 (defvertex "vertex-3"
-    '((ev-1 (guard-x    act-na nil        )
-            (guard-y    act-b  *vertex-1* )
-            (guard-z    act-na *vertex-1* ))
-      (ev-5 (guard-na   act-d  *vertex-4* ))  ))
+    '((ev-1 (guard-x    act-na   nil        )
+            (guard-y    act-b    *vertex-1* )
+            (guard-z    act-na   *vertex-1* ))
+      (ev-5 (guard-na   act-d    *vertex-4* ))  ))
 (defvertex "vertex-4"
-    '((ev-3 (guard-y    act-d  *vertex-2* ))
-      (ev-6 (guard-x    act-c  *vertex-3* ))  ))
+    '((ev-3 (guard-y    act-d    *vertex-2* ))
+      (ev-6 (guard-x    act-c    *vertex-3* ))  ))
 
 (defparameter *current-vertex* *vertex-1*)
 
@@ -118,11 +119,11 @@
                            (vertex-t-evt-tbl *current-vertex*)))))
     (if line
         (eval-first-admissible-triple line)
-        (progn
+        (progn ;; else
           (format t "~%~A: event ~W not found; doing nothing"
                   (vertex-t-name *current-vertex*)
                   event-symbol)
-          *current-vertex*))))
+          *current-vertex*)))) ;; return current vertex in this case
 
 (print (equal *current-vertex* *vertex-1*))
 (print (eq *current-vertex* *vertex-1*))
