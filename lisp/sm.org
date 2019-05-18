@@ -1,4 +1,4 @@
-#+TITLE: Uri's SM in Lisp: Version 0.0.4
+#+TITLE: Uri's SM in Lisp: Version 0.0.5
 #+DATE: <2015-11-23 Mon>
 #+AUTHOR: Brian Beckman, Uri Ran
 #+EMAIL: bbeckman@amazon.com
@@ -34,7 +34,7 @@
 :  of 2019-04-12
 : org version: 9.2.2
 
-  This is version 0.0.4 of Uri Ran's State-Machine demo.
+  This is version 0.0.5 of Uri Ran's State-Machine demo.
 
 ** How to Use this Document
 
