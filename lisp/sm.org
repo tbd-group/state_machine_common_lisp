@@ -608,8 +608,9 @@
 NIL
 NIL
 vertex-3: guard failed; trying next guard
+vertex-3: guard failed; trying next guard
 "vertex 3 exit"
-"action b"
+"action na"
 "vertex 1 entry"
 T
 vertex-1: event EV-4 not found; doing nothing
